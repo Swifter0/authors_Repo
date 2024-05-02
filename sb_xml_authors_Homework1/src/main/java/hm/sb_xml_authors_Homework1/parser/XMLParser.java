@@ -42,42 +42,45 @@ public class XMLParser {
 				for(int articleIndex = 0; articleIndex < articleElements.size(); articleIndex++) {
 					
 					Element currentArticle = articleElements.get(articleIndex);
-					List<Element> authorElements = currentArticle.getChildren();
+					List<Element> authorsElements = currentArticle.getChildren();
 					
-					List<Author> currentAuthors = new ArrayList<>();
-					Boolean isThere01 = false;
 					
-					for(int authorIndex = 0; authorIndex < authorElements.size(); authorIndex++) {
+					for(int authorsIndex = 0; authorsIndex < authorsElements.size(); authorsIndex++) {
 						
-						Element currentAuthor = authorElements.get(authorIndex);
-						Author author = new Author(currentAuthor.getValue());
-						currentAuthors.add(author);
-						
-						String authorPosition = currentAuthor.getAttributeValue("position");
+						Element currentAuthors = authorsElements.get(authorsIndex);
+						List<Element> authorElements = currentAuthors.getChildren();
 						
 						
-						if(authorPosition.equals("01")) {
+						List<Author> authorsToSave = new ArrayList<>();
+						Boolean isThere01 = false;
+						
+						for(int authorIndex = 0; authorIndex < authorElements.size(); authorIndex++) {
 							
-							isThere01 = true;
-						}
-						
-					}
-					
-					if(isThere01) {
-						
-						for(int index = 0; index < currentAuthors.size(); index++) {
+							Element currentAuthor = authorElements.get(authorIndex);
+							Author author = new Author(currentAuthor.getValue());
+							authorsToSave.add(author);
 							
-							Author currentAuthor = currentAuthors.get(index);
-							authors.add(currentAuthor);
+							String authorPosition = currentAuthor.getAttributeValue("position");
+							
+							if(authorPosition.equals("01")) {
+								
+								isThere01 = true;
+							}
 							
 						}
 						
+						if(isThere01) {
+							
+							for(int index = 0; index < authorsToSave.size(); index++) {
+								
+								Author currentAuthor = authorsToSave.get(index);
+								authors.add(currentAuthor);
+								
+							}
+						}
 					}
-					
 				}
-				
 			}
-			
 		}
 		
 		

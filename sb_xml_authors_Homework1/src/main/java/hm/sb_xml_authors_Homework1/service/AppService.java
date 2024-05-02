@@ -34,21 +34,42 @@ public class AppService {
 			AuthorDto authorDto = new AuthorDto(currentAuthor.getName());
 			
 			
-			for(int otherIndex = 0; otherIndex < authorDtoList.size(); otherIndex++) {
+			if(authorDtoList.size() > 0) {
 				
-				AuthorDto currentAuthorDto = authorDtoList.get(otherIndex);
-				if(currentAuthorDto.getName().equals(authorDto.getName())) {
+				
+				
+				for(int otherIndex = 0; otherIndex < authorDtoList.size(); otherIndex++) {
 					
-					authorDto.addAppears();
+					AuthorDto currentAuthorDto = authorDtoList.get(otherIndex);
 					
+					if(currentAuthorDto.getName().equals(authorDto.getName())) {
+						
+						currentAuthorDto.addAppears();
+						authorDtoList.set(otherIndex, currentAuthorDto);
+						
+					}
+					else if(otherIndex == authorDtoList.size()-1){
+						
+						authorDtoList.add(authorDto);
+						break;
+						
+					}
 				}
+				
+				
+				
 			}
-		
-					authorDtoList.add(authorDto);
+			else {
+				
+				authorDtoList.add(authorDto);
+				
+			}
+					
 		}
 		
+		AuthorDtoList finalAuthorDtoList = new AuthorDtoList(authorDtoList);
 		
-		return authorDtoList;
+		return finalAuthorDtoList;
 	}
 	
 	

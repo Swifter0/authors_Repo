@@ -10,7 +10,7 @@ public class AuthorDto {
 	public AuthorDto(String name) {
 		super();
 		this.name = name;
-		this.appears = 0;
+		this.appears = 1;
 	}
 
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	
+	<body>
+	
+		<table>
+			<tr>
+				<th>Author name</th>
+				<th>Appearance times</th>
+			</tr>
+			<tr th:each="authors : ${authorsdto.getAuthorDtos()}">
+				<td th:text="${authors.getName()}"></td>
+				<td th:text="${authors.getAppears()}"></td>
+			</tr>
+		
+		</table>
+	
+	
+	
+	
+	
+	</body>
+</html>
