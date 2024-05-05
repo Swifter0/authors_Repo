@@ -5,8 +5,42 @@
 		<title>Insert title here</title>
 	</head>
 	
-	
 	<body>
+	
+	<form action="/chooseview" method ="post">
+		<select name="abcor321">
+			<option value="abc">ABC</option>
+			<option value="321">321</option>
+		</select>
+		<input type="submit"/>
+	
+	</form>
+	
+	<form action="/selection" method="post">
+		<input type="text" name="text" placeholder="search"/>
+		<input type="submit"/>
+	</form>
+	
+	<p>Save to</p>
+	
+	<div th:if="${authorsdto} != null">
+		<form action="/save" method="post">
+		
+			<input type="hidden" name="list" th:value="${authorsdto.getAuthorDtos()}"/>
+			<select name="option">
+				<option value="sql">MySql Database</option>
+				<option value="xml">XML file</option>
+			</select>
+			<input type="submit"/>
+		
+		</form>
+	</div>
+	
+	<div th:if="${success} != null">
+	
+	<p th:text="${success}"></p>
+	
+	</div>
 	
 		<table>
 			<tr>
@@ -19,10 +53,6 @@
 			</tr>
 		
 		</table>
-	
-	
-	
-	
 	
 	</body>
 </html>

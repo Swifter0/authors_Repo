@@ -22,7 +22,7 @@ public class AppService {
 		this.parser = parser;
 	}
 
-	public AuthorDtoList getAuthors() throws JDOMException, IOException {
+	public AuthorDtoList getAuthors(String selection) throws JDOMException, IOException {
 		
 		List<AuthorDto> authorDtoList = new ArrayList<>();
 		List<Author> authorList = parser.getAuthors();
@@ -69,7 +69,40 @@ public class AppService {
 		
 		AuthorDtoList finalAuthorDtoList = new AuthorDtoList(authorDtoList);
 		
+		if(selection == null || selection.equals("abc")) {
+			
+			finalAuthorDtoList.orderByAbc();
+			
+		}
+		else if(selection.equals("321")) {
+			
+			finalAuthorDtoList.orderBy321();
+			
+		}
+		else {
+			
+		finalAuthorDtoList.setAuthorDtos(finalAuthorDtoList.orderByText(selection));
+		
+		}
+		
+		
 		return finalAuthorDtoList;
+	}
+
+	public String saveToMySql(List<AuthorDto> authorDtoListFromFrontEnd) {
+		
+		String success = "";
+		
+		
+		
+		
+		
+		return success;
+	}
+
+	public String saveToXml(List<AuthorDto> authorDtoListFromFrontEnd) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
