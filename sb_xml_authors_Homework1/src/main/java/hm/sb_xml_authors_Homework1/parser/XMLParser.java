@@ -1,6 +1,7 @@
 package hm.sb_xml_authors_Homework1.parser;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,13 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.springframework.stereotype.Repository;
 
+import hm.sb_xml_authors_Homework1.dto.AuthorDto;
 import hm.sb_xml_authors_Homework1.model.Author;
+import hm.sb_xml_authors_Homework1.model.SavedAuthor;
 
 @Repository
 public class XMLParser {
@@ -87,4 +92,64 @@ public class XMLParser {
 		return authors;
 	}
 
+	public void saveToXml(List<SavedAuthor> savedAuthors) throws IOException {
+		
+		FileWriter writer = new FileWriter("C:\\Users\\Marto\\OneDrive\\Dokumentumok\\Java_Hazifeladatok_Marci\\Saved Xml\\Új Szöveges dokumentum.txt");
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+		
+		Document doc = new Document();
+		
+		Element rootElement = new Element("Authors");
+		
+		for(int index = 0; index < savedAuthors.size(); index++) {
+			
+			SavedAuthor SavedAuthor = savedAuthors.get(index);
+			
+			
+			Element authorElement = new Element("Author");
+			authorElement.setText(SavedAuthor.getName());
+			authorElement.setAttribute("Appearances", SavedAuthor.getAppearance() + "");
+			
+			rootElement.addContent(authorElement);
+			
+		}
+		
+		doc.setRootElement(rootElement);
+		
+		outputter.output(doc, writer);
+		writer.close();
+	}
+
+	public List<SavedAuthor> getSavedAuthors() throws JDOMException, IOException {
+		
+		List<SavedAuthor> savedAuthors = new ArrayList<>();
+		
+		SAXBuilder sb = new SAXBuilder();
+		Document doc = sb.build(new File("C:\\Users\\Marto\\OneDrive\\Dokumentumok\\Java_Hazifeladatok_Marci\\Saved Xml\\Új Szöveges dokumentum.txt"));
+		
+		Element rootElement = doc.getRootElement();
+		
+		List<Element> authorElements = rootElement.getChildren("Author");
+		
+		for(int index = 0; index < authorElements.size(); index++) {
+			
+			Element currentAuthorElement = authorElements.get(index);
+			SavedAuthor savedAuthor = new SavedAuthor(
+					currentAuthorElement.getValue(),
+					Integer.parseInt(currentAuthorElement.getAttributeValue("Appearances"))
+					);
+			
+			savedAuthors.add(savedAuthor);
+			
+		}
+		
+		return savedAuthors;
+	}
 }
+
+
+
+
+
+
+

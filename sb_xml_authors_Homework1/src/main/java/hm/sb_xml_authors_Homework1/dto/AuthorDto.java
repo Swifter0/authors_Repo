@@ -1,25 +1,10 @@
 package hm.sb_xml_authors_Homework1.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "authors")
 public class AuthorDto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
 	
-	@Column(name = "name")
 	private String name;
-	
-	@Column(name = "appearance")
 	private int appears;
 	
 	public AuthorDto() {
@@ -57,5 +42,12 @@ public class AuthorDto {
 		
 		this.appears++;
 	}
+
+	@Override
+	public String toString() {
+		return "AuthorDto [name=" + name + ", appears=" + appears + "]";
+	}
+	
+	
 	
 }

@@ -7,6 +7,8 @@
 	
 	<body>
 	
+	<p th:if="${error} != null" th:text="${error}"></p>
+	
 	<form action="/chooseview" method ="post">
 		<select name="abcor321">
 			<option value="abc">ABC</option>
@@ -26,7 +28,7 @@
 	<div th:if="${authorsdto} != null">
 		<form action="/save" method="post">
 		
-			<input type="hidden" name="list" th:value="${authorsdto.getAuthorDtos()}"/>
+			<input type="hidden" name="list" th:value="${authorsdto}"/>
 			<select name="option">
 				<option value="sql">MySql Database</option>
 				<option value="xml">XML file</option>

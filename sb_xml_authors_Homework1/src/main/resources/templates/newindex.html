@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="UTF-8">
+			<title>Insert title here</title>
+	</head>
+	
+	
+	<body>
+	
+		<p>Choose where you want to read from</p>
+		
+		<form action="/newindex/option" method="get">
+		
+			<select name="option">
+				<option value="sql">From Database</option>
+				<option value="xml">From Saved Xml file</option>
+			</select>
+			
+			<input type="submit"/>
+		
+		</form>
+	
+		<p th:if="${success} != null" th:text="${success}"></p>
+	
+		<div th:if="${authorsdto} != null">
+			<table>
+					<tr>
+						<th>Author name</th>
+						<th>Appearance times</th>
+					</tr>
+					<tr th:each="authors : ${authorsdto.getAuthorDtos()}">
+						<td th:text="${authors.getName()}"></td>
+						<td th:text="${authors.getAppears()}"></td>
+					</tr>
+				
+			</table>
+		</div>
+	
+	</body>
+</html>
